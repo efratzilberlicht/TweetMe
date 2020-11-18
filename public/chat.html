@@ -12,17 +12,17 @@
 
   <img id="logoHomePage" src="slackMeHomePage.png" alt="logo" />
   <div id="chat">
-    <input type="text" id="sendMessage" onkeydown="send(event)" name="myMessageText" placeholder="enter your message here">
+    <input type="text" id="sendMessage" onkeydown="send(event)" name="myMessageText"
+      placeholder="enter your message here">
   </div>
 
   <script>
     function load() {
       $.get('/getMyMessages', (res) => {
         var myMessages = res.messages;
-        console.log(myMessages);
         for (let m of myMessages) {
           var message = document.createElement("div");
-          message.innerHTML = m.user + "  " + m.text ;
+          message.innerHTML = m.user + "  " + m.text;
           message.setAttribute("class", "message");
           document.getElementById("chat").appendChild(message);
         }
@@ -30,21 +30,19 @@
     }
 
     function send(event) {
-      
-      if(event.keyCode == 10 || event.keyCode == 13)
-      { 
-         var newMessage = document.createElement("div");
-         newMessage.innerHTML = event.target.value;
-         newMessage.setAttribute("class", "message");
-         document.getElementById("chat").appendChild(newMessage);
-         document.getElementById("sendMessage").innerHTML = "";
-         
-         fetch('/sendMyMessages', {method: 'POST', headers: {'Content-Type': 'application/json'},
-         body: JSON.stringify({value: event.target.value})}).then(load());
-
+      if (event.keyCode == 10 || event.keyCode == 13) {
+        var newMessage = document.createElement("div");
+        newMessage.innerHTML = event.target.value;
+        newMessage.setAttribute("class", "message");
+        document.getElementById("chat").innerHTML = (document.getElementById("chat")).innerHTML + newMessage;
+        fetch('/sendMyMessages', {
+          method: 'POST', headers: { 'Content-Type': 'application/json'},
+          body: JSON.stringify({ value: event.target.value })
+        }).then(load());
+        location.reload();
       }
     }
-  
+
   </script>
 
 </body>

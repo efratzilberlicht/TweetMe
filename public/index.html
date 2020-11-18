@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link href="style.css" rel="stylesheet" />
+  <title>LogIn</title>
+</head>
+
+<body>
+  <div id="login">
+    <img id="logoHomePage" src="slackMeHomePage.png" alt="logo" />
+  <form>
+    <h3>Please enter your token:</h3>
+    <input id="handleToken" class="input" type="text" name="token" />
+    <h3>Please channel name:</h3>
+    <input id="handleChannelName" class="input" type="text" name="channelName" />
+    <h3>Please channel id:</h3>
+    <input id="handleChannelId" class="input" type="text" name="channelId" />
+    <br />
+      <input id="submit" type="submit" value="OK" formaction="/slackMe" formmethod="POST"/>
+  </form>
+ </div> 
+</body>
+
+</html>

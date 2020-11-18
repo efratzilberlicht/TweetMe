@@ -1,0 +1,30 @@
+body {
+  background-color: rgb(74, 21, 76);
+  line-height: 1em;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+#chat {
+background-color:whitesmoke !important;
+width: 50%;
+height: 100%;
+float: left;
+}
+#logoHomePage {
+ width: 10vw;
+ float: left;
+margin-right: 28vh;
+}
+.message {
+color:  rgb(74, 21, 76);
+padding: 5px;
+direction: rtl;
+}
+#sendMessage {
+width: 99%;
+height: 3vh !important;
+border-radius: 3px !important;
+border-color: gray !important;
+direction: rtl;
+color:rgb(74, 21, 76);
+padding: 3px;
+}

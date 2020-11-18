@@ -1,0 +1,32 @@
+body {
+    background-color: rgb(74, 21, 76);
+    line-height: 1em;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+#login {
+text-align: center;
+margin-top: 7vh;
+}
+.input {
+  border-radius: 5px!important;
+  border-color: none !important;
+  width: 18vw;
+  height: 3vh;
+  background-color: whitesmoke;
+}
+#submit {
+  background-color: whitesmoke;
+  color: rgb(74, 21, 76) !important; 
+  font-weight: 900;
+  margin: 2vh;
+  border-radius: 5px!important;
+}
+img {
+  width: 10vw;
+  margin-bottom: 5vh;
+}
+h3 {
+  color: whitesmoke;
+ 
+  font-weight: 700;
+}

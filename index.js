@@ -1,59 +1,53 @@
+const bodyParser = require('body-parser')
+const express = require('express')
+const path = require('path');
+const app = express()
 
-const express = require('express');
-const app = express();
-
-// app.use(express.static(path.join(__dirname, 'public')));
-
-
-app.get('/', function (req, res) {
-  // res.read("login.html");
-  res.send('hellow')
-});
-app.listen(3000);
-
-app.get('/messages', (req, res) => {
-  return res.send("all your messages");
-});
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 var Slack = require('slack-node');
-apiToken = "xoxp-1505231510978-1490490972055-1529111559888-2ae9f60dd778219e203d1888b62d45a2";
-slack = new Slack(apiToken);
+const { strict } = require('assert');
+const { text } = require('body-parser');
+const { response } = require('express');
+var slack;
+var apiToken = "";
+var channelName = "";
+var channelId = "";
 
-app.get('/get', (req, res) => {
-  let responseTest = getMessage();
-  console.log("send to get");
-  console.log(responseTest);
-  return res.send(responseTest);
-});
+app.listen(5000);
 
-app.get('/post', (req, res) => {
-  let responseTest = postMessage();
-  console.log("send to post");
-  console.log(responseTest);
-  return res.send(responseTest);
-});
+//save the slack details from the user and rote to his slack 
+app.post('/slackMe',function(req, res) {
+     apiToken = req.body.token;
+     channelName = req.body.channelName;
+     channelId = req.body.channelId;
+     slack = new Slack(apiToken); 
+     res.sendFile(__dirname +'/public/chat.html');
+  }
+);
 
-
-function getMessage() {
+//get all the massages from the user's slack
+app.get('/getMyMessages', (req, res) => {
+  slack = new Slack(apiToken); 
   slack.api('conversations.history', {
-    token: "xoxp-1505231510978-1490490972055-1529111559888-2ae9f60dd778219e203d1888b62d45a2",
-    channel: 'C01F1BL1092'
+    token: apiToken,
+    channel: channelId,
   }, function (err, response) {
-    console.log("get")
-    console.log(response);
-    console.log(console.error);
-    return response;
+   return res.send(response); 
   });
-}
+});
 
-function postMessage() {
-  slack.api('chat.postMessage', {
-    text: 'hi Tovy!',
-    channel: '#general'
-  }, function (err, response) {
-    console.log("post!")
-    console.log(response);
-    return response;
-  });
-}
+//send the massages to the user's slack
+app.post('/sendMyMessages', function(req, res) {
+ let myMessageText = req.body.value;
+ slack = new Slack(apiToken); 
+ slack.api('chat.postMessage', {
+      text: myMessageText,
+      channel: channelName,
+    }, function (err, response) {
+      return res.send(response);
+    });
+});
 

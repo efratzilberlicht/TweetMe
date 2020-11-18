@@ -18,40 +18,25 @@
 
   <script>
 
-    var images = new Array("orange.png", "purple.png", "purple.png");
+    var userNum = new Array("משתמש 1: ","משתמש 2: ", "משתמש 3: ", "משתמש 14: ", "משתמש 5: ","משתמש 5: ");
     var usersImages = new Map();
     var usersCount = 0;
     
     function load() {
       $.get('/getMyMessages', (res) => {
         var myMessages = res.messages;
-        console.log(res);
+        console.log(myMessages);
         for (let m of myMessages) {
           var message = document.createElement("div");
           if(!(usersImages.has(m.user))){
-            map.set(m.user,images[usersCount++]);
-            }
-          var img = document.createElement("img");
-          img.src = usersImages.get(m.user);
-          // This next line will just add it to the <body> tag
-          message.innerHTML =  img + m.text ;
+            usersImages.set(m.user, userNum[usersCount++]);
+          }
+          message.innerHTML = usersImages.get(m.user) + " " + m.text ;
           message.setAttribute("class", "message");
           document.getElementById("chat").appendChild(message);
         }
       });
     }
-      
-    // function load() {
-    //   $.get('/getMyMessages', (res) => {
-    //     var myMessages = res.messages;
-    //     for (let m of myMessages) {
-    //       var message = document.createElement("div");
-    //       message.innerHTML = m.user + "  " + m.text;
-    //       message.setAttribute("class", "message");
-    //       document.getElementById("chat").appendChild(message);
-    //     }
-    //   });
-    // }
 
     function send(event) {
       if (event.keyCode == 10 || event.keyCode == 13) {

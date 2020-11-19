@@ -13,9 +13,11 @@
   "dependencies": {
     "@slack/web-api": "^5.13.0",
     "body-parser": "^1.19.0",
+    "couch-potato": "0.0.1",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "pg": "^8.5.1",
     "slack-node": "^0.1.8"
-  }
+  },
+  "postinstall": "npm update && npm install package.json"
 }
